@@ -1,4 +1,4 @@
-package com.github.achaaab.world.solver;
+package com.github.achaaab.wordle.solver;
 
 import java.util.Optional;
 import java.util.Set;

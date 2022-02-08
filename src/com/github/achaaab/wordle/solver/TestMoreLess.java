@@ -1,4 +1,4 @@
-package com.github.achaaab.world.solver;
+package com.github.achaaab.wordle.solver;
 
 import static java.util.stream.Collectors.toSet;
 import static java.util.stream.IntStream.range;

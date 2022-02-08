@@ -1,4 +1,4 @@
-package com.github.achaaab.world.solver;
+package com.github.achaaab.wordle.solver;
 
 /**
  * guess game pure abstraction
