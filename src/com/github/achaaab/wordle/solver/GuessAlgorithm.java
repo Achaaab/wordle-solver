@@ -11,6 +11,7 @@ import java.util.Set;
  */
 public interface GuessAlgorithm {
 
+
 	/**
 	 * Finds the best guess amongst remaining candidates.
 	 *
@@ -22,4 +23,18 @@ public interface GuessAlgorithm {
 	 * @since 0.0.0
 	 */
 	<C, S> Optional<C> findBestGuess(GuessGame<C, S> game, Set<C> candidates);
+
+	/**
+	 * Eliminates candidates that would not match the given score if they were the solution.
+	 * That means they cannot be the solution.
+	 *
+	 * @param game game played
+	 * @param candidates remaining candidates to filter
+	 * @param candidate played candidate
+	 * @param score score obtained by the candidate
+	 * @param <C> type of the candidates
+	 * @param <S> type of the scores
+	 * @since 0.0.0
+	 */
+	<C, S> void eliminateCandidates(GuessGame<C, S> game, Set<C> candidates, C candidate, S score);
 }

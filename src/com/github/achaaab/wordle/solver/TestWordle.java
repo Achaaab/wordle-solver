@@ -1,13 +1,5 @@
 package com.github.achaaab.wordle.solver;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.Set;
-
-import static java.lang.ClassLoader.getSystemResourceAsStream;
-import static java.util.Objects.requireNonNull;
-import static java.util.stream.Collectors.toSet;
-
 /**
  * @author Jonathan Guéhenneux
  * @since 0.0.0
@@ -24,27 +16,13 @@ public class TestWordle {
 
 		var game = new Wordle();
 		var algorithm = new TaresAlgorithm();
+		var dictionary = new Dictionary("allowed_words.txt");
+		var candidates = dictionary.getWords();
 
-		var candidates = loadWords("allowed_words.txt");
+		var before = System.currentTimeMillis();
 		var bestGuess = algorithm.findBestGuess(game, candidates).orElseThrow();
+		var after = System.currentTimeMillis();
 
-		System.out.println(bestGuess);
-	}
-
-	/**
-	 * Loads a set of words from a resource containing 1 word per line.
-	 *
-	 * @param resourceName name of the resource from which to load words
-	 * @return loaded words
-	 * @since 0.0.0
-	 */
-	private static Set<String> loadWords(String resourceName) {
-
-		var stream = getSystemResourceAsStream(resourceName);
-		requireNonNull(stream);
-
-		var reader = new BufferedReader(new InputStreamReader(stream));
-
-		return reader.lines().collect(toSet());
+		System.out.println(bestGuess + " found in " + (after - before) + "ms");
 	}
 }

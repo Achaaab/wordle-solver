@@ -50,22 +50,24 @@ public class TaresAlgorithm implements GuessAlgorithm {
 		var solutionsByScore = candidates.stream().collect(
 				groupingBy(solution -> game.getScore(candidate, solution)));
 
-		var expectedInformation = solutionsByScore.values().stream(). // iterate over solutions having the same score
+		return solutionsByScore.values().stream(). // iterate over solutions having the same score
 				mapToDouble(List::size). // count them
 				map(count -> count / candidateCount). // compute probability of this score
-				map(probability -> probability * log2(1 / probability)). // compute p * log2(1 / p)
+				map(probability -> probability * -log2(probability)). // compute p * log2(1 / p)
 				sum();
+	}
 
-		// System.out.println(candidate + ": " + expectedInformation);
+	@Override
+	public <C, S> void eliminateCandidates(GuessGame<C, S> game, Set<C> candidates, C candidate, S score) {
 
-		return expectedInformation;
+		candidates.removeIf(solution ->
+				!game.getScore(candidate, solution).equals(score));
 	}
 
 	@Override
 	public <C, S> Optional<C> findBestGuess(GuessGame<C, S> game, Set<C> candidates) {
 
-		var expectedInformations = candidates.stream().collect(toMap(
-				identity(),
+		var expectedInformations = candidates.parallelStream().collect(toMap(identity(),
 				candidate -> getExpectedInformation(game, candidate, candidates)));
 
 		return candidates.stream().max(comparingDouble(expectedInformations::get));
