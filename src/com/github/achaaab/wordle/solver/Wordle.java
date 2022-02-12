@@ -10,49 +10,56 @@ import static java.lang.Math.pow;
  */
 public class Wordle implements GuessGame<String, Integer> {
 
-	private static final int NOT_AT_THIS_POSITION = 1;
-	private static final int AT_THIS_POSITION = 2;
-	private static final int LETTER_SCORE_COUNT = 3;
+	public static final int MISPLACED = 1;
+	public static final int EXACT = 2;
+	public static final int SCORE_BASE = 3;
+
+	private static final int SCORED = 0;
 
 	@Override
 	public Integer getScore(String candidate, String solution) {
 
-		var score = 0;
 		var length = candidate.length();
 
+		var candidateLetters = candidate.toCharArray();
 		var solutionLetters = solution.toCharArray();
+
+		var greenScore = 0;
 
 		for (var position = 0; position < length; position++) {
 
-			score *= LETTER_SCORE_COUNT;
+			greenScore *= SCORE_BASE;
 
-			var letter = candidate.charAt(position);
+			if (candidateLetters[position] == solutionLetters[position]) {
 
-			if (solutionLetters[position] == letter) {
+				greenScore += EXACT;
+				candidateLetters[position] = SCORED;
+				solutionLetters[position] = SCORED;
+			}
+		}
 
-				score += AT_THIS_POSITION;
-				solutionLetters[position] = 0;
+		var yellowScore = 0;
 
-			} else {
+		for (var position = 0; position < length; position++) {
 
-				var solutionPosition = 0;
-				var found = false;
+			yellowScore *= SCORE_BASE;
 
-				while (solutionPosition < length && !found) {
+			if (candidateLetters[position] != SCORED) {
 
-					if (solutionLetters[solutionPosition] == letter) {
+				for (var solutionPosition = 0; solutionPosition < length; solutionPosition++) {
 
-						score += NOT_AT_THIS_POSITION;
-						solutionLetters[solutionPosition] = 0;
-						found = true;
+					if (solutionLetters[solutionPosition] != SCORED &&
+							candidateLetters[position] == solutionLetters[solutionPosition]) {
+
+						yellowScore += MISPLACED;
+						solutionLetters[solutionPosition] = SCORED;
+						break;
 					}
-
-					solutionPosition++;
 				}
 			}
 		}
 
-		return score;
+		return yellowScore + greenScore;
 	}
 
 	/**
@@ -61,6 +68,6 @@ public class Wordle implements GuessGame<String, Integer> {
 	 * @since 0.0.0
 	 */
 	public int getSolutionScore(int wordLength) {
-		return (int) pow(LETTER_SCORE_COUNT, wordLength) - 1;
+		return (int) pow(SCORE_BASE, wordLength) - 1;
 	}
 }
