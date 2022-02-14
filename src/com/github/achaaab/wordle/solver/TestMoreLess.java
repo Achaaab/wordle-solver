@@ -1,10 +1,11 @@
 package com.github.achaaab.wordle.solver;
 
+import static java.lang.System.out;
 import static java.util.stream.Collectors.toSet;
-import static java.util.stream.IntStream.range;
+import static java.util.stream.IntStream.rangeClosed;
 
 /**
- * proof-test with the simplest guess game
+ * {@link TaresAlgorithm} validation with {@link MoreLess} game
  *
  * @author Jonathan Guéhenneux
  * @since 0.0.0
@@ -22,9 +23,9 @@ public class TestMoreLess {
 		var moreLess = new MoreLess();
 		var algorithm = new TaresAlgorithm();
 
-		var candidates = range(0, 101).boxed().collect(toSet());
+		var candidates = rangeClosed(0, 100).boxed().collect(toSet());
 		var bestGuess = algorithm.findBestGuess(moreLess, candidates).orElseThrow();
 
-		System.out.println(bestGuess);
+		out.println(bestGuess);
 	}
 }

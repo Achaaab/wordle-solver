@@ -21,7 +21,7 @@ import static java.util.stream.Collectors.toMap;
  */
 public class TaresAlgorithm implements GuessAlgorithm {
 
-	private static final double LOG_2 = log(2);
+	public static final double LOG_2 = log(2);
 
 	/**
 	 * Computes the base 2 logarithm of the given number.
@@ -30,7 +30,7 @@ public class TaresAlgorithm implements GuessAlgorithm {
 	 * @return base 2 logarithm of the given number
 	 * @since 0.0.0
 	 */
-	private static double log2(double number) {
+	public static double log2(double number) {
 		return log(number) / LOG_2;
 	}
 
@@ -66,6 +66,11 @@ public class TaresAlgorithm implements GuessAlgorithm {
 
 	@Override
 	public <C, S> Optional<C> findBestGuess(GuessGame<C, S> game, Set<C> candidates) {
+
+		/*
+		Here, we use some memoization. Otherwise the expected information of a candidate will be computed several times
+		when seeking the candidate with maximum expected information.
+		 */
 
 		var expectedInformations = candidates.parallelStream().collect(toMap(identity(),
 				candidate -> getExpectedInformation(game, candidate, candidates)));

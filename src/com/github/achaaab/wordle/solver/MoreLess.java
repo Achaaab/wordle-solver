@@ -1,7 +1,12 @@
 package com.github.achaaab.wordle.solver;
 
 /**
- * The simplest guess game imaginable.
+ * A very simple guess game, for validation purpose. Scoring:
+ * <ul>
+ *    <li>'-': the solution is lesser than the guess</li>
+ *    <li>'=': the solution is equal to the guess</li>
+ *    <li>'+': the solution is greater than the guess</li>
+ * </ul>
  *
  * @author Jonathan Guéhenneux
  * @since 0.0.0

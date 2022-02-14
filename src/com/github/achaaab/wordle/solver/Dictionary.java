@@ -9,6 +9,8 @@ import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
 
 /**
+ * set of words
+ *
  * @author Jonathan Guéhenneux
  * @since 0.0.0
  */
@@ -30,8 +32,6 @@ public class Dictionary {
 		var reader = new BufferedReader(new InputStreamReader(stream));
 
 		words = reader.lines().collect(toSet());
-
-		System.out.println(words.size() + " word(s) in the dictionary");
 	}
 
 	/**
@@ -43,7 +43,10 @@ public class Dictionary {
 	}
 
 	/**
+	 * Checks if every word in this dictionary has the same length and returns the common length.
+	 *
 	 * @return common word length in this dictionary
+	 * @throws RuntimeException if the dictionary is empty or if words have different lengths
 	 * @since 0.0.0
 	 */
 	public int getWordLength() {

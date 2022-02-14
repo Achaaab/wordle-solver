@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 import static com.github.achaaab.wordle.solver.Wordle.SCORE_BASE;
 import static java.lang.Integer.parseInt;
+import static java.lang.System.currentTimeMillis;
+import static java.lang.System.out;
 
 /**
  * Minimalist, yet interactive wordle solver. It requires score input as a string of 5 digits, from left to right :
@@ -29,33 +31,33 @@ public class WordleSolver {
 
 		var scanner = new Scanner(System.in);
 
-		var wordle = new Wordle();
 		var algorithm = new TaresAlgorithm();
 
 		var dictionary = new Dictionary("allowed_words.txt");
 		var candidates = dictionary.getWords();
 		var wordLength = dictionary.getWordLength();
-		var solutionScore = wordle.getSolutionScore(wordLength);
+		var wordle = new Wordle(wordLength);
+		var solutionScore = wordle.getSolutionScore();
 
 		int score;
 
 		do {
 
-			System.out.println("================================");
+			out.println("================================");
 
-			var before = System.currentTimeMillis();
+			var before = currentTimeMillis();
 			var bestGuess = algorithm.findBestGuess(wordle, candidates).orElseThrow();
-			var after = System.currentTimeMillis();
+			var after = currentTimeMillis();
 
-			System.out.println(bestGuess.toUpperCase() + " found in " + (after - before) + "ms");
+			out.println(bestGuess.toUpperCase() + " found in " + (after - before) + "ms");
 
-			System.out.print("score ? ");
+			out.print("score ? ");
 			score = parseInt(scanner.next(), SCORE_BASE);
 			algorithm.eliminateCandidates(wordle, candidates, bestGuess, score);
-			System.out.println(candidates.size() + " candidate(s) left");
+			out.println(candidates.size() + " candidate(s) left");
 
 			if (candidates.size() < 20) {
-				System.out.println(candidates);
+				out.println(candidates);
 			}
 
 		} while (score < solutionScore);

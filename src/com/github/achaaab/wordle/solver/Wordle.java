@@ -1,7 +1,5 @@
 package com.github.achaaab.wordle.solver;
 
-import static java.lang.Math.pow;
-
 /**
  * wordle guess game
  *
@@ -16,42 +14,67 @@ public class Wordle implements GuessGame<String, Integer> {
 
 	private static final int SCORED = 0;
 
+	private final int length;
+	private final int[] exactWeights;
+	private final int[] misplacedWeights;
+	private final int solutionScore;
+
+	/**
+	 * Creates a new wordle game for a fixed word length.
+	 *
+	 * @param length number of letters of words in this game
+	 * @since 0.0.0
+	 */
+	public Wordle(int length) {
+
+		this.length = length;
+
+		exactWeights = new int[length];
+		misplacedWeights = new int[length];
+
+		var exactWeight = EXACT;
+		var misplacedWeight = MISPLACED;
+
+		var position = length;
+
+		while (position-- > 0) {
+
+			exactWeights[position] = exactWeight;
+			misplacedWeights[position] = misplacedWeight;
+
+			exactWeight *= SCORE_BASE;
+			misplacedWeight *= SCORE_BASE;
+		}
+
+		solutionScore = exactWeight - 1;
+	}
+
 	@Override
 	public Integer getScore(String candidate, String solution) {
-
-		var length = candidate.length();
 
 		var candidateLetters = candidate.toCharArray();
 		var solutionLetters = solution.toCharArray();
 
-		var greenScore = 0;
+		var score = 0;
 
 		for (var position = 0; position < length; position++) {
-
-			greenScore *= SCORE_BASE;
 
 			if (candidateLetters[position] == solutionLetters[position]) {
 
-				greenScore += EXACT;
+				score += exactWeights[position];
 				candidateLetters[position] = SCORED;
-				solutionLetters[position] = SCORED;
 			}
 		}
 
-		var yellowScore = 0;
-
 		for (var position = 0; position < length; position++) {
-
-			yellowScore *= SCORE_BASE;
 
 			if (candidateLetters[position] != SCORED) {
 
 				for (var solutionPosition = 0; solutionPosition < length; solutionPosition++) {
 
-					if (solutionLetters[solutionPosition] != SCORED &&
-							candidateLetters[position] == solutionLetters[solutionPosition]) {
+					if (candidateLetters[position] == solutionLetters[solutionPosition]) {
 
-						yellowScore += MISPLACED;
+						score += misplacedWeights[position];
 						solutionLetters[solutionPosition] = SCORED;
 						break;
 					}
@@ -59,15 +82,14 @@ public class Wordle implements GuessGame<String, Integer> {
 			}
 		}
 
-		return yellowScore + greenScore;
+		return score;
 	}
 
 	/**
-	 * @param wordLength word length
 	 * @return score obtained when finding the solution
 	 * @since 0.0.0
 	 */
-	public int getSolutionScore(int wordLength) {
-		return (int) pow(SCORE_BASE, wordLength) - 1;
+	public int getSolutionScore() {
+		return solutionScore;
 	}
 }

@@ -1,5 +1,8 @@
 package com.github.achaaab.wordle.solver;
 
+import static java.lang.System.currentTimeMillis;
+import static java.lang.System.out;
+
 /**
  * @author Jonathan Guéhenneux
  * @since 0.0.0
@@ -14,15 +17,18 @@ public class TestWordle {
 	 */
 	public static void main(String... arguments) {
 
-		var game = new Wordle();
-		var algorithm = new TaresAlgorithm();
 		var dictionary = new Dictionary("allowed_words.txt");
+		var wordLength = dictionary.getWordLength();
 		var candidates = dictionary.getWords();
+		out.println(candidates.size() + " word(s) in the dictionary");
 
-		var before = System.currentTimeMillis();
+		var game = new Wordle(wordLength);
+		var algorithm = new TaresAlgorithm();
+
+		var before = currentTimeMillis();
 		var bestGuess = algorithm.findBestGuess(game, candidates).orElseThrow();
-		var after = System.currentTimeMillis();
+		var after = currentTimeMillis();
 
-		System.out.println(bestGuess + " found in " + (after - before) + "ms");
+		out.println(bestGuess + " found in " + (after - before) + "ms");
 	}
 }
