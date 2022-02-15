@@ -1,6 +1,6 @@
 name: test
 on: [push]
 jobs:
-  test:
+  Explore-GitHub-Actions:
     runs-on: "ubuntu-latest"
       - run: mvn clean verify
