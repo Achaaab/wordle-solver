@@ -8,13 +8,13 @@ import static java.lang.System.currentTimeMillis;
 import static java.lang.System.out;
 
 /**
- * Minimalist, yet interactive wordle solver. It requires score input as a string of 5 digits, from left to right :
+ * Minimalist, yet interactive wordle solver. It requires score input as a string of 5 digits, from left to right:
  * <ul>
  *     <li>0 means gray = not in the word</li>
  *     <li>1 means yellow = misplaced</li>
  *     <li>2 means green = exact</li>
  * </ul>
- * For example :
+ * For example:
  * 11020 means that the first 2 letters are misplaced and the fourth is exact, the third and the fifth letters are not
  * in the word.
  *
@@ -60,6 +60,6 @@ public class WordleSolver {
 				out.println(candidates);
 			}
 
-		} while (score < solutionScore);
+		} while (score != solutionScore);
 	}
 }

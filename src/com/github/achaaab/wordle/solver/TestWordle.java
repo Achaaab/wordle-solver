@@ -4,6 +4,8 @@ import static java.lang.System.currentTimeMillis;
 import static java.lang.System.out;
 
 /**
+ * This test is a {@link TaresAlgorithm} validation with {@link Wordle}, we expect to get "tares" as a best guess.
+ *
  * @author Jonathan Guéhenneux
  * @since 0.0.0
  */

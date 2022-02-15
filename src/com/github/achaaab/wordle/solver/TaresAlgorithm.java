@@ -11,17 +11,20 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toMap;
 
 /**
- * initial idea from <a href="https://www.youtube.com/watch?v=v68zYyaEmEA">Solving Wordle using information theory</a>
- * <p>
- * This algorithm does not use the fact than only a fraction of accepted words are actually candidates.
- * It does not use either the fact that some words may be more frequently picked than others.
+ * This implementation is inspired by the following video:
+ * <a href="https://www.youtube.com/watch?v=v68zYyaEmEA">Solving Wordle using information theory</a>
+ *
+ * This algorithm does not use the fact that in some games,
+ * only a fraction of accepted candidates are potentially solutions.
+ *
+ * It does not use either the fact that some candidates have a higher probability to be solution than others.
  *
  * @author Jonathan Guéhenneux
  * @since 0.0.0
  */
 public class TaresAlgorithm implements GuessAlgorithm {
 
-	public static final double LOG_2 = log(2);
+	private static final double LOG_2 = log(2);
 
 	/**
 	 * Computes the base 2 logarithm of the given number.
@@ -30,8 +33,29 @@ public class TaresAlgorithm implements GuessAlgorithm {
 	 * @return base 2 logarithm of the given number
 	 * @since 0.0.0
 	 */
-	public static double log2(double number) {
+	private static double log2(double number) {
 		return log(number) / LOG_2;
+	}
+
+	@Override
+	public <C, S> Optional<C> findBestGuess(GuessGame<C, S> game, Set<C> candidates) {
+
+		/*
+		Here, we use some memoization. Otherwise the expected information of candidates will be computed several times
+		when seeking the candidate with maximum expected information.
+		 */
+
+		var expectedInformations = candidates.parallelStream().collect(toMap(identity(),
+				candidate -> getExpectedInformation(game, candidate, candidates)));
+
+		return candidates.stream().max(comparingDouble(expectedInformations::get));
+	}
+
+	@Override
+	public <C, S> void eliminateCandidates(GuessGame<C, S> game, Set<C> candidates, C candidate, S score) {
+
+		candidates.removeIf(solution ->
+				!game.getScore(candidate, solution).equals(score));
 	}
 
 	/**
@@ -55,26 +79,5 @@ public class TaresAlgorithm implements GuessAlgorithm {
 				map(count -> count / candidateCount). // compute probability of this score
 				map(probability -> probability * -log2(probability)). // compute p * log2(1 / p)
 				sum();
-	}
-
-	@Override
-	public <C, S> void eliminateCandidates(GuessGame<C, S> game, Set<C> candidates, C candidate, S score) {
-
-		candidates.removeIf(solution ->
-				!game.getScore(candidate, solution).equals(score));
-	}
-
-	@Override
-	public <C, S> Optional<C> findBestGuess(GuessGame<C, S> game, Set<C> candidates) {
-
-		/*
-		Here, we use some memoization. Otherwise the expected information of a candidate will be computed several times
-		when seeking the candidate with maximum expected information.
-		 */
-
-		var expectedInformations = candidates.parallelStream().collect(toMap(identity(),
-				candidate -> getExpectedInformation(game, candidate, candidates)));
-
-		return candidates.stream().max(comparingDouble(expectedInformations::get));
 	}
 }

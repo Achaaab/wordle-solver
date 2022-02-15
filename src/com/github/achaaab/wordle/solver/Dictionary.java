@@ -62,7 +62,7 @@ public class Dictionary {
 		if (lengths.size() > 1) {
 
 			throw new RuntimeException("Cannot figure out the common word length " +
-					"because there are different word lengths : " + lengths);
+					"because there are different word lengths: " + lengths);
 		}
 
 		return lengths.iterator().next();
