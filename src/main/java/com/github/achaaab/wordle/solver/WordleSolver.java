@@ -62,7 +62,7 @@ public class WordleSolver {
 			algorithm.eliminateCandidates(wordle, candidates, bestGuess, score);
 			out.println(candidates.size() + " candidate(s) left");
 
-			if (candidates.size() < 20) {
+			if (score != solutionScore && candidates.size() < 20) {
 				out.println(candidates);
 			}
 
