@@ -1,0 +1,7 @@
+name: "build on push"
+on: [push]
+jobs:
+  build:
+    name: "project building and validation"
+    runs-on: "ubuntu-latest"
+      - run: mvn verify
