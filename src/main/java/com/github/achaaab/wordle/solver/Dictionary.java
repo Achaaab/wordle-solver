@@ -44,7 +44,7 @@ public class Dictionary {
 	}
 
 	/**
-	 * Checks if every word in this dictionary has the same length and returns the common length.
+	 * Checks if every word in this dictionary has the same length then returns the common length.
 	 *
 	 * @return common word length in this dictionary
 	 * @throws RuntimeException if the dictionary is empty or if words have different lengths

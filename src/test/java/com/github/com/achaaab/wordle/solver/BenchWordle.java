@@ -103,10 +103,10 @@ public class BenchWordle {
 		algorithm = new SoareAlgorithm();
 
 		var candidateDictionary = new Dictionary("possible_words.txt");
-		var guessDictionnary = new Dictionary("allowed_words.txt");
+		var guessDictionary = new Dictionary("allowed_words.txt");
 
 		candidates = candidateDictionary.getWords();
-		guesses = guessDictionnary.getWords();
+		guesses = guessDictionary.getWords();
 
 		var wordLength = candidateDictionary.getWordLength();
 		wordle = new Wordle(wordLength);

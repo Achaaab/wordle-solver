@@ -1,6 +1,5 @@
 package com.github.com.achaaab.wordle.solver;
 
-import com.github.achaaab.wordle.solver.SoareAlgorithm;
 import com.github.achaaab.wordle.solver.Wordle;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +7,7 @@ import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * This test is a {@link SoareAlgorithm} validation with {@link Wordle}, we expect to get "tares" as a best guess.
+ * unit tests of {@link Wordle}
  *
  * @author Jonathan Guéhenneux
  * @since 0.0.0

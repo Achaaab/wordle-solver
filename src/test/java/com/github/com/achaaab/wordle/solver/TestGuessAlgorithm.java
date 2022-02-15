@@ -26,7 +26,7 @@ class TestGuessAlgorithm {
 	void testEliminateCandidates() {
 
 		var game = new MoreLess();
-		GuessAlgorithm algorithm = new SoareAlgorithm();
+		var algorithm = new SoareAlgorithm();
 		var candidates = rangeClosed(0, 62).boxed().collect(toSet());
 
 		algorithm.eliminateCandidates(game, candidates, 31, GREATER);

@@ -43,7 +43,7 @@ public class SoareAlgorithm implements GuessAlgorithm {
 		times when seeking the candidate with maximum expected information.
 		*/
 
-		var expectedInformations = guesses.parallelStream().collect(toMap(identity(),
+		var expectedInformation = guesses.parallelStream().collect(toMap(identity(),
 				guess -> getExpectedInformation(game, guess, candidates)));
 
 		/*
@@ -51,7 +51,7 @@ public class SoareAlgorithm implements GuessAlgorithm {
 		In case of equality, pick the guess which is a candidate.
 		 */
 
-		return guesses.stream().max(comparingDouble(expectedInformations::get).
+		return guesses.stream().max(comparingDouble(expectedInformation::get).
 				thenComparing(candidates::contains));
 	}
 
