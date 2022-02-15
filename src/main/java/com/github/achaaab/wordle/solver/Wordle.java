@@ -71,9 +71,9 @@ public class Wordle implements GuessGame<String, Integer> {
 	}
 
 	@Override
-	public Integer getScore(String candidate, String solution) {
+	public Integer getScore(String guess, String solution) {
 
-		var candidateLetters = candidate.toCharArray();
+		var candidateLetters = guess.toCharArray();
 		var solutionLetters = solution.toCharArray();
 
 		var score = 0;
@@ -84,6 +84,7 @@ public class Wordle implements GuessGame<String, Integer> {
 
 				score += exactWeights[position];
 				candidateLetters[position] = SCORED;
+				solutionLetters[position] = SCORED;
 			}
 		}
 

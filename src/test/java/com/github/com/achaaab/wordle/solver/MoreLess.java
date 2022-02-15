@@ -1,4 +1,6 @@
-package com.github.achaaab.wordle.solver;
+package com.github.com.achaaab.wordle.solver;
+
+import com.github.achaaab.wordle.solver.GuessGame;
 
 /**
  * A very simple guess game for the sake of validation, where the goal is to find a number with consecutive guesses.
@@ -19,13 +21,13 @@ public class MoreLess implements GuessGame<Integer, Character> {
 	public static final char GREATER = '+';
 
 	@Override
-	public Character getScore(Integer candidate, Integer solution) {
+	public Character getScore(Integer guess, Integer solution) {
 
 		var score = EQUAL;
 
-		if (solution < candidate) {
+		if (solution < guess) {
 			score = LESSER;
-		} else if (solution > candidate) {
+		} else if (solution > guess) {
 			score = GREATER;
 		}
 

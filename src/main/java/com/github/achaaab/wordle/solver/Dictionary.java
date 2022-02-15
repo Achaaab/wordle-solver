@@ -22,6 +22,7 @@ public class Dictionary {
 	 * Creates a new dictionary from a resource containing 1 word per line.
 	 *
 	 * @param resourceName name of the resource
+	 * @throws NullPointerException if the resource could not be found
 	 * @since 0.0.0
 	 */
 	public Dictionary(String resourceName) {

@@ -13,14 +13,14 @@ package com.github.achaaab.wordle.solver;
 public interface GuessGame<C, S> {
 
 	/**
-	 * Evaluates a candidate against a solution.
+	 * Evaluates a guess against a solution.
 	 *
-	 * @param candidate candidate to evaluate
+	 * @param guess guess to evaluate
 	 * @param solution solution, or presumed solution
 	 * @return evaluated score
 	 * @since 0.0.0
 	 */
-	S getScore(C candidate, C solution);
+	S getScore(C guess, C solution);
 
 	/**
 	 * The solution score is the score when the guess is equal to the solution, meaning the game is ended.

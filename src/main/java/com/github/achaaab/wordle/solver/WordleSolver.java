@@ -24,6 +24,8 @@ import static java.lang.System.out;
 public class WordleSolver {
 
 	/**
+	 * Runs the interactive console solver.
+	 *
 	 * @param arguments none
 	 * @since 0.0.0
 	 */
@@ -31,11 +33,15 @@ public class WordleSolver {
 
 		var scanner = new Scanner(System.in);
 
-		var algorithm = new TaresAlgorithm();
+		var algorithm = new SoareAlgorithm();
 
-		var dictionary = new Dictionary("allowed_words.txt");
-		var candidates = dictionary.getWords();
-		var wordLength = dictionary.getWordLength();
+		var possibleWords = new Dictionary("possible_words.txt");
+		var allowedWords = new Dictionary("allowed_words.txt");
+
+		var candidates = possibleWords.getWords();
+		var guesses = allowedWords.getWords();
+
+		var wordLength = possibleWords.getWordLength();
 		var wordle = new Wordle(wordLength);
 		var solutionScore = wordle.getSolutionScore();
 
@@ -46,12 +52,12 @@ public class WordleSolver {
 			out.println("================================");
 
 			var before = currentTimeMillis();
-			var bestGuess = algorithm.findBestGuess(wordle, candidates).orElseThrow();
+			var bestGuess = algorithm.findBestGuess(wordle, guesses, candidates).orElseThrow();
 			var after = currentTimeMillis();
 
 			out.println(bestGuess.toUpperCase() + " found in " + (after - before) + "ms");
 
-			out.print("score ? ");
+			out.print("score? ");
 			score = parseInt(scanner.next(), SCORE_BASE);
 			algorithm.eliminateCandidates(wordle, candidates, bestGuess, score);
 			out.println(candidates.size() + " candidate(s) left");

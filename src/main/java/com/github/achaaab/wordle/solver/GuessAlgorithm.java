@@ -15,25 +15,30 @@ public interface GuessAlgorithm {
 	 * Finds the best guess amongst remaining candidates.
 	 *
 	 * @param game game in which to guess
+	 * @param guesses acceptable guesses
 	 * @param candidates remaining candidates
-	 * @param <C> type of the candidates
+	 * @param <C> type of the guesses and candidates
 	 * @param <S> type of the scores
 	 * @return best guess found
 	 * @since 0.0.0
 	 */
-	<C, S> Optional<C> findBestGuess(GuessGame<C, S> game, Set<C> candidates);
+	<C, S> Optional<C> findBestGuess(GuessGame<C, S> game, Set<C> guesses, Set<C> candidates);
 
 	/**
 	 * Eliminates candidates that would not match the given score if they were the solution.
 	 * That means they cannot be the solution.
 	 *
-	 * @param game game to play
-	 * @param candidates remaining candidates to filter
-	 * @param candidate played candidate
-	 * @param score score obtained by the candidate
 	 * @param <C> type of the candidates
 	 * @param <S> type of the scores
+	 * @param game game to play
+	 * @param candidates remaining candidates to filter
+	 * @param guess played guess
+	 * @param score score obtained by the guess
 	 * @since 0.0.0
 	 */
-	<C, S> void eliminateCandidates(GuessGame<C, S> game, Set<C> candidates, C candidate, S score);
+	default <C, S> void eliminateCandidates(GuessGame<C, S> game, Set<C> candidates, C guess, S score) {
+
+		candidates.removeIf(candidate ->
+				!game.getScore(guess, candidate).equals(score));
+	}
 }
