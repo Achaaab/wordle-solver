@@ -7,5 +7,6 @@ jobs:
     name: "project building and validation"
     runs-on: ubuntu-latest
     steps:
-      - name: "project building and validation"
+      - uses: actions/checkout@v2
+      - name: "maven with verify goal"
         run: mvn verify
