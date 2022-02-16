@@ -2,6 +2,7 @@
 
 ![build](https://github.com/Achaaab/wordle-solver/workflows/build/badge.svg)
 ![Coverage](.github/badges/jacoco.svg)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ## Description
 This project tries to provide an efficient way of solving the popular game named Wordle. The "guess" algorithm
