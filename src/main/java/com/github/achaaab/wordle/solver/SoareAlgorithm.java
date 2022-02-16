@@ -15,12 +15,12 @@ import static java.util.stream.Collectors.toMap;
  * <a href="https://www.youtube.com/watch?v=v68zYyaEmEA">Solving Wordle using information theory</a>
  *
  * This algorithm does not use the fact that some candidates could have a higher probability to be solution than others.
- * The name of this algorithm comes from the best first guess it finds with official wordle guess game.
+ * The name of this algorithm comes from the best first guess it finds with official wordle guessing game.
  *
  * @author Jonathan Guéhenneux
  * @since 0.0.0
  */
-public class SoareAlgorithm implements GuessAlgorithm {
+public class SoareAlgorithm implements GuessingAlgorithm {
 
 	private static final double LOG_2 = log(2);
 
@@ -36,7 +36,7 @@ public class SoareAlgorithm implements GuessAlgorithm {
 	}
 
 	@Override
-	public <C, S> Optional<C> findBestGuess(GuessGame<C, S> game, Set<C> guesses, Set<C> candidates) {
+	public <C, S> Optional<C> findBestGuess(GuessingGame<C, S> game, Set<C> guesses, Set<C> candidates) {
 
 		/*
 		Here, we use some memoization. Otherwise the expected information of candidates will be computed several 
@@ -58,13 +58,13 @@ public class SoareAlgorithm implements GuessAlgorithm {
 	/**
 	 * Evaluates the expected information given by a candidate.
 	 *
-	 * @param game guess game to play
+	 * @param game guessing game to play
 	 * @param guess guess to evaluate
 	 * @param candidates candidates left
 	 * @return expected information in bits
 	 * @since 0.0.0
 	 */
-	private <C, S> double getExpectedInformation(GuessGame<C, S> game, C guess, Set<C> candidates) {
+	private <C, S> double getExpectedInformation(GuessingGame<C, S> game, C guess, Set<C> candidates) {
 
 		var candidateCount = candidates.size();
 

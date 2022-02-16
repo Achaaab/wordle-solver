@@ -52,7 +52,7 @@ public class WordleSolver {
 	private final Set<String> possibleWords;
 	private final Set<String> guesses;
 	private final int solutionScore;
-	private final GuessAlgorithm algorithm;
+	private final GuessingAlgorithm algorithm;
 	private final Scanner scanner;
 	private final String guessSeparator;
 

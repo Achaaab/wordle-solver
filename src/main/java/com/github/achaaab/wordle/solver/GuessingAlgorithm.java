@@ -4,12 +4,12 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * algorithm to find the best guess in a guess game
+ * algorithm to find the best guess in a guessing game
  *
  * @author Jonathan Guéhenneux
  * @since 0.0.0
  */
-public interface GuessAlgorithm {
+public interface GuessingAlgorithm {
 
 	/**
 	 * Finds the best guess amongst remaining candidates.
@@ -22,7 +22,7 @@ public interface GuessAlgorithm {
 	 * @return best guess found
 	 * @since 0.0.0
 	 */
-	<C, S> Optional<C> findBestGuess(GuessGame<C, S> game, Set<C> guesses, Set<C> candidates);
+	<C, S> Optional<C> findBestGuess(GuessingGame<C, S> game, Set<C> guesses, Set<C> candidates);
 
 	/**
 	 * Eliminates candidates that would not match the given score if they were the solution.
@@ -36,7 +36,7 @@ public interface GuessAlgorithm {
 	 * @param score score obtained by the guess
 	 * @since 0.0.0
 	 */
-	default <C, S> void eliminateCandidates(GuessGame<C, S> game, Set<C> candidates, C guess, S score) {
+	default <C, S> void eliminateCandidates(GuessingGame<C, S> game, Set<C> candidates, C guess, S score) {
 
 		candidates.removeIf(candidate ->
 				!game.getScore(guess, candidate).equals(score));

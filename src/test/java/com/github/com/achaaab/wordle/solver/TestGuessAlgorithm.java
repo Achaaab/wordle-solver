@@ -1,6 +1,6 @@
 package com.github.com.achaaab.wordle.solver;
 
-import com.github.achaaab.wordle.solver.GuessAlgorithm;
+import com.github.achaaab.wordle.solver.GuessingAlgorithm;
 import com.github.achaaab.wordle.solver.SoareAlgorithm;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +15,7 @@ import static java.util.stream.IntStream.rangeClosed;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * unit tests of {@link GuessAlgorithm}
+ * unit tests of {@link GuessingAlgorithm}
  *
  * @author Jonathan Guéhenneux
  * @since 0.0.0

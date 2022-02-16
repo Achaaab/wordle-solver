@@ -1,7 +1,7 @@
 package com.github.com.achaaab.wordle.solver;
 
 import com.github.achaaab.wordle.solver.Dictionary;
-import com.github.achaaab.wordle.solver.GuessAlgorithm;
+import com.github.achaaab.wordle.solver.GuessingAlgorithm;
 import com.github.achaaab.wordle.solver.SoareAlgorithm;
 import com.github.achaaab.wordle.solver.Wordle;
 
@@ -86,7 +86,7 @@ public class BenchWordle {
 	}
 
 	private final Wordle wordle;
-	private final GuessAlgorithm algorithm;
+	private final GuessingAlgorithm algorithm;
 	private final Set<String> candidates;
 	private final Set<String> guesses;
 	private final int solutionScore;

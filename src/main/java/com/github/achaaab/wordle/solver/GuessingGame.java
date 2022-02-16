@@ -1,7 +1,7 @@
 package com.github.achaaab.wordle.solver;
 
 /**
- * A guess game is a game where the goal is to find a solution among candidates with successive guesses.
+ * A guessing game is a game where the goal is to find a solution among candidates with successive guesses.
  * Each guess is rewarded with a score. A game has a known solution score.
  * If the guess is not a solution, the score is not equal to the solution score.
  * If the guess is a solution, the score is equal to the solution score.
@@ -10,7 +10,7 @@ package com.github.achaaab.wordle.solver;
  * @param <S> type of scores
  * @since 0.0.0
  */
-public interface GuessGame<C, S> {
+public interface GuessingGame<C, S> {
 
 	/**
 	 * Evaluates a guess against a solution.

@@ -1,7 +1,7 @@
 package com.github.achaaab.wordle.solver;
 
 /**
- * Wordle is a guess game where the goal is to find a 5-letter word with consecutive guesses which are also
+ * Wordle is a guessing game where the goal is to find a 5-letter word with consecutive guesses which are also
  * 5-letter words. In this game, scoring is a sequence of colors: 1 color per letter, from left to right.
  * <ul>
  *     <li>green: this letter is in the word, at this position</li>
@@ -23,7 +23,7 @@ package com.github.achaaab.wordle.solver;
  * @author Jonathan Guéhenneux
  * @since 0.0.0
  */
-public class Wordle implements GuessGame<String, Integer> {
+public class Wordle implements GuessingGame<String, Integer> {
 
 	public static final int MISPLACED = 1;
 	public static final int EXACT = 2;
